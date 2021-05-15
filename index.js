@@ -1,30 +1,24 @@
-// const refs = {
-//   daysCount: document.querySelector('.value[data-value="days"]'),
-//   hoursCount: document.querySelector('.value[data-value="hours"]'),
-//   minsCount: document.querySelector('.value[data-value="mins"]'),
-//   secsCount: document.querySelector('.value[data-value="secs"]'),
-// }
+const refs = {
+  daysCount: document.querySelector('.value[data-value="days"]'),
+  hoursCount: document.querySelector('.value[data-value="hours"]'),
+  minsCount: document.querySelector('.value[data-value="mins"]'),
+  secsCount: document.querySelector('.value[data-value="secs"]'),
+}
 
 class CountdownTimer {
-  
-  refs = {};
   timeComponents = { days: 0, hours: 0, mins: 0, secs: 0 };
 
-  constructor({ selector, targetDate }) {
-    this.refs.dd = document.querySelector(`${selector} .value[data-value="days"]`);
-    this.refs.hh = document.querySelector(`${selector} .value[data-value="hours"]`);
-    this.refs.mm = document.querySelector(`${selector} .value[data-value="mins"]`);
-    this.refs.ss = document.querySelector(`${selector} .value[data-value="secs"]`);
+  constructor({targetDate}) {
     this.targetDate = targetDate;
   }
 
-  start() {
+  count() {
     const startTime = this.targetDate;
     setInterval(() => {
       const currentTime = Date.now();
       const deltaTime = startTime - currentTime;
-      const countdownTime = this.getTimeComponents(deltaTime);
-      this.updTextContent() 
+      this.getTimeComponents(deltaTime);
+      this.updCounter() 
     }, 1000)
   }
 
@@ -40,11 +34,11 @@ class CountdownTimer {
 
   }
 
-  updTextContent() {
-    this.refs.dd.textContent = this.timeComponents.days;
-    this.refs.hh.textContent = this.timeComponents.hours;
-    this.refs.mm.textContent = this.timeComponents.mins;
-    this.refs.ss.textContent = this.timeComponents.secs;
+  updCounter() {
+    refs.daysCount.textContent = this.timeComponents.days;
+    refs.hoursCount.textContent = this.timeComponents.hours;
+    refs.minsCount.textContent = this.timeComponents.mins;
+    refs.secsCount.textContent = this.timeComponents.secs;
   }
 }
 
@@ -53,4 +47,4 @@ const timer = new CountdownTimer({
   targetDate: new Date('Jun 01, 2021'),
 });
 
-timer.start()
+timer.count()
